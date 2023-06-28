@@ -136,12 +136,13 @@ function allWagesFor(employeeRecord){
 console.log(allWagesFor(cRecord));
 
 function calculatePayroll(employeeRecords){
-    let employeeWage, totalOwed = 0
-    for(let employeeRecord of employeeRecords){
-        employeeWage = allWagesFor(employeeRecord)
-        totalOwed += employeeWage
-    }
-    return totalOwed    
+
+   let totalAmountOwed = employeeRecords.reduce((totalOwed, employeeRecord)=>{
+        let employeeWage = allWagesFor(employeeRecord)
+        return  totalOwed += employeeWage
+    },0)
+    return totalAmountOwed
+  
 }
 
 
