@@ -84,7 +84,7 @@ function hoursWorkedOnDate(employeeRecord, date){
         
     }
     //hoursWorked = timeOut - timeIn
-    hoursWorked = Math.floor(timeOut - timeIn)/100
+    let hoursWorked = Math.floor(timeOut - timeIn)/100
     return hoursWorked
 
 }
@@ -110,14 +110,15 @@ console.log(wagesEarnedOnDate(cRecord, "0044-03-15"));
 
 function allWagesFor(employeeRecord){
     let timeinEvents = employeeRecord.timeInEvents
+    console.log(employeeRecord);
     let allDates = []
     for (const timeinEvent of timeinEvents){
         allDates.push(timeinEvent.date) 
     }
     
     let allwages = 0
-    for(date of allDates){
-        dayWage = wagesEarnedOnDate(employeeRecord, date)
+    for(let date of allDates){
+       let  dayWage = wagesEarnedOnDate(employeeRecord, date)
         console.log("daywage 1: "+ dayWage);
         allwages+= dayWage
     }
@@ -135,38 +136,16 @@ function allWagesFor(employeeRecord){
 console.log(allWagesFor(cRecord));
 
 function calculatePayroll(employeeRecords){
-    employeeRecords.reduce((totalSumOwed, employee)=>{
-      let  employeeWages = allWagesFor(employee)
-      totalSumOwed += employeeWages
-    },0)
-
-    return totalSumOwed
+    let employeeWage, totalOwed = 0
+    for(let employeeRecord of employeeRecords){
+        employeeWage = allWagesFor(employeeRecord)
+        totalOwed += employeeWage
+    }
+    return totalOwed    
 }
 
-calculatePayroll()
 
-const csvDataEmployees = [
-    ["Thor", "Odinsson", "Electrical Engineer", 45],
-    ["Loki", "Laufeysson-Odinsson", "HR Representative", 35],
-    ["Natalia", "Romanov", "CEO", 150],
-    ["Darcey", "Lewis", "Intern", 15],
-    ["Jarvis", "Stark", "CIO", 125],
-    ["Anthony", "Stark", "Angel Investor", 300]
-  ]
-  const csvTimesIn = [
-    ["Thor", ["2018-01-01 0800", "2018-01-02 0800", "2018-01-03 0800"]],
-    ["Loki", ["2018-01-01 0700", "2018-01-02 0700", "2018-01-03 0600"]],
-    ["Natalia", ["2018-01-01 1700", "2018-01-02 1800", "2018-01-03 1300"]],
-    ["Darcey", ["2018-01-01 0700", "2018-01-02 0800", "2018-01-03 0800"]],
-    ["Jarvis", ["2018-01-01 0500", "2018-01-02 0500", "2018-01-03 0500"]],
-    ["Anthony", ["2018-01-01 1400", "2018-01-02 1400", "2018-01-03 1400"]]
-  ]
-  const csvTimesOut = [
-    ["Thor", ["2018-01-01 1600", "2018-01-02 1800", "2018-01-03 1800"]],
-    ["Loki", ["2018-01-01 1700", "2018-01-02 1800", "2018-01-03 1800"]],
-    ["Natalia", ["2018-01-01 2300", "2018-01-02 2300", "2018-01-03 2300"]],
-    ["Darcey", ["2018-01-01 1300", "2018-01-02 1300", "2018-01-03 1300"]],
-    ["Jarvis", ["2018-01-01 1800", "2018-01-02 1800", "2018-01-03 1800"]],
-    ["Anthony", ["2018-01-01 1600", "2018-01-02 1600", "2018-01-03 1600"]]
-  ]
-    let employeeRecords = createEmployeeRecords(csvDataEmployees)
+//calculatePayroll(csvDataEmployees)
+
+
+  
